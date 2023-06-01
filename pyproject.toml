@@ -2,12 +2,18 @@
 name = "cft"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["Rattew <Kaitrg@yahoo.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
+fastapi = {extras = ["all"], version = "^0.95.2"}
+python-jose = "^3.3.0"
+pytest = "^7.3.1"
 
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^6.0.0"
 
 [build-system]
 requires = ["poetry-core"]
