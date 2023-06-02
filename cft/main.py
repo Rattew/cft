@@ -9,8 +9,11 @@ import secrets
 import ast
 
 #определяем секретный ключ и алгоритм шифрования
-SECRET_KEY = 'dd6176a9ce47c93a4d19bc76f558cb21cf1b0322ef56d8497384f4b9ebf56145'
-ALGORITHM = 'HS256'
+sec_data = open('secret.txt', 'r')
+for line in sec_data:
+    SECRET_KEY = ast.literal_eval(line.strip())['SECRET_KEY']
+    ALGORITHM = ast.literal_eval(line.strip())['ALGORITHM']
+sec_data.close()
 
 #создаем модель токена
 class Token(BaseModel):
@@ -78,7 +81,8 @@ def auth(username: str = Depends(validate_credentials)):
     file.close
     return RedirectResponse('/salary')
 
-#смотрим зарплату(и утираем слезы...)
+#проверяем токен, смотрим зарплату(и утираем слезы...)
+#через минуту информация на странице после обновления станет недоступна
 @app.get('/salary')
 def salary():
     reader = open('token.txt', 'r')
